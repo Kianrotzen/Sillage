@@ -93,7 +93,6 @@ async function loadItems() {
   const stored = state.user ? await storage.get(KEYS.data(state.user)) : null;
   state.items = Array.isArray(stored) ? stored : [];
 
-  // Fold old Sunny/Beach tags into the current six.
   const valid = new Set(SEASONS.map((s) => s.id));
   let changed = false;
   for (const item of state.items) {
@@ -250,7 +249,6 @@ async function openDemo() {
   }
   await login('demo', 'favorites');
 }
-
 
 const LIST_FLAG = { fav: 'fav', own: 'owned', wish: 'wish' };
 
