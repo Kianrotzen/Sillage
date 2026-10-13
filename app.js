@@ -10,7 +10,7 @@ const SEASONS = [
 ];
 const VIEWS = ['account', 'favorites', 'collection', 'wishlist', 'seasons', 'profile'];
 const LOCKED = VIEWS.filter((id) => id !== 'account');
-const SEASON_MAP = { sunny: 'day', beach: 'summer' }; // tags from older saves
+const SEASON_MAP = { sunny: 'day', beach: 'summer' }; 
 const KEYS = {
   users: 'sillage.users',
   session: 'sillage.session',
@@ -651,7 +651,6 @@ function bindEvents() {
   window.addEventListener('hashchange', showView);
 }
 
-/* ---------- Boot ---------- */
 async function init() {
   ['favSeasons', 'ownSeasons', 'wishSeasons'].forEach(buildSeasonPicker);
   bindEvents();
