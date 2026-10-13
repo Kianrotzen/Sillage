@@ -18,7 +18,6 @@ const KEYS = {
 };
 
 const state = { user: null, items: [], activeSeason: 'summer', profileId: null };
-
 const $ = (id) => document.getElementById(id);
 const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
 
