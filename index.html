@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Sillage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="stylesPerfume.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="mast">
+    <div>
+      <h1>Sill<em>age</em></h1>
+      <p>Scents have the power to trigger a memory, collect scents that will make you memorable.</p>
+    </div>
+    <div class="who" id="who" hidden>
+      <span>Signed in as <strong id="whoName"></strong></span>
+      <button type="button" class="btn ghost small" id="signOut">Sign out</button>
+    </div>
+  </header>
+
+  <nav class="tabs" id="tabs" aria-label="Sections">
+    <a href="#account">Account</a>
+    <a href="#favorites">Favorites</a>
+    <a href="#collection">Collection</a>
+    <a href="#wishlist">Wishlist</a>
+    <a href="#seasons">By season</a>
+    <a href="#profile">Scent profile</a>
+  </nav>
+
+  <section id="account" aria-labelledby="h-account">
+    <div id="authView" class="pane">
+      <div class="panel">
+        <h3 id="h-account">Sign in</h3>
+        <form id="authForm" autocomplete="on">
+          <div class="field">
+            <label class="lbl" for="authUser">Username</label>
+            <input type="text" id="authUser" name="username" autocomplete="username" maxlength="24" required>
+            <p class="field-error" id="authUserError" hidden role="alert"></p>
+          </div>
+          <div class="field">
+            <label class="lbl" for="authPass">Password</label>
+            <input type="password" id="authPass" name="password" autocomplete="current-password" required>
+            <p class="field-error" id="authPassError" hidden role="alert"></p>
+          </div>
+          <div class="btns">
+            <button class="btn" type="submit" value="signin">Sign in</button>
+            <button class="btn ghost" type="submit" value="signup">Create account</button>
+          </div>
+          <p class="status" id="authStatus" role="status" aria-live="polite"></p>
+        </form>
+        <p class="aside">Just looking? <button type="button" class="btn ghost small" id="demoBtn">Open the sample shelf</button></p>
+      </div>
+      <div>
+        <h2>A notebook for your nose</h2>
+        <p class="lede">Log the bottles you love, the ones you own, and the ones you want. Tag each with the weather it works in, then jot down the perfumer and notes.</p>
+        <ol class="steps">
+          <li><strong>Accounts live on this device.</strong> There is no server. A different browser or device starts empty.</li>
+          <li><strong>The login is a convenience, not security.</strong> It keeps separate people on one browser from mixing shelves. Clearing site data erases everything.</li>
+          <li><strong>Six tags.</strong> Spring, Summer, Autumn, Winter, Day and Night. A bottle can carry as many as it deserves.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div id="homeView" hidden>
+      <p class="notice" id="demoNotice" hidden>You are on the sample shelf. These entries are examples, so edit or remove them freely.</p>
+      <h2>Your shelf at a glance</h2>
+      <p class="lede">Keeping up with your collection.</p>
+      <div class="stats">
+        <div class="stat"><b id="stFav">0</b><span>Favorites</span></div>
+        <div class="stat"><b id="stOwn">0</b><span>In collection</span></div>
+        <div class="stat"><b id="stWish">0</b><span>On wishlist</span></div>
+        <div class="stat"><b id="stProf">0</b><span>With profile</span></div>
+      </div>
+      <div class="panel">
+        <h3>Bottles per season tag</h3>
+        <div class="bars" id="bars"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="favorites" hidden aria-labelledby="h-fav">
+    <div class="empty lock"><strong>Sign in to keep favorites</strong>Open the Account tab to sign in, create an account, or try the sample shelf.</div>
+    <div class="body">
+      <div class="pane">
+        <div class="panel">
+          <h3 id="h-fav">Add a favorite</h3>
+          <form id="favForm">
+            <div class="field"><label class="lbl" for="favName">Perfume name</label><input type="text" id="favName" maxlength="80" required></div>
+            <div class="field"><label class="lbl" for="favBrand">Brand</label><input type="text" id="favBrand" maxlength="80" required></div>
+            <fieldset><legend class="legend">Good for</legend><div class="chips" id="favSeasons"></div></fieldset>
+            <button class="btn" type="submit">Add to favorites</button>
+            <p class="status" id="favStatus" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+        <div>
+          <h2>Favorites</h2>
+          <p class="lede">The ones you reach for, or wish you owned.</p>
+          <div class="shelf" id="favList"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="collection" hidden aria-labelledby="h-col">
+    <div class="empty lock"><strong>Sign in to build your collection</strong>Open the Account tab to sign in, create an account, or try the sample shelf.</div>
+    <div class="body">
+      <div class="pane">
+        <div class="panel">
+          <h3 id="h-col">Add a bottle you own</h3>
+          <form id="ownForm">
+            <div class="field"><label class="lbl" for="ownName">Perfume name</label><input type="text" id="ownName" maxlength="80" required></div>
+            <div class="field"><label class="lbl" for="ownBrand">Brand</label><input type="text" id="ownBrand" maxlength="80" required></div>
+            <div class="row2">
+              <div class="field">
+                <label class="lbl" for="ownConc">Concentration</label>
+                <select id="ownConc">
+                  <option value="">Not sure</option>
+                  <option>Parfum</option><option>Eau de Parfum</option><option>Eau de Toilette</option><option>Eau de Cologne</option><option>Eau Fraîche</option>
+                </select>
+              </div>
+              <div class="field"><label class="lbl" for="ownSize">Size (ml)</label><input type="number" id="ownSize" min="1" max="300" inputmode="numeric"></div>
+            </div>
+            <fieldset><legend class="legend">Good for</legend><div class="chips" id="ownSeasons"></div></fieldset>
+            <button class="btn" type="submit">Add to collection</button>
+            <p class="status" id="ownStatus" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+        <div>
+          <h2>Collection</h2>
+          <p class="lede">What is actually on your shelf.</p>
+          <div class="shelf" id="ownList"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="wishlist" hidden aria-labelledby="h-wish">
+    <div class="empty lock"><strong>Sign in to keep a wishlist</strong>Open the Account tab to sign in, create an account, or try the sample shelf.</div>
+    <div class="body">
+      <div class="pane">
+        <div class="panel">
+          <h3 id="h-wish">Add a perfume</h3>
+          <form id="wishForm">
+            <div class="field"><label class="lbl" for="wishName">Perfume name</label><input type="text" id="wishName" maxlength="80" required></div>
+            <div class="field"><label class="lbl" for="wishBrand">Brand</label><input type="text" id="wishBrand" maxlength="80" required></div>
+            <fieldset>
+              <legend class="legend">Add to</legend>
+              <div class="chips" id="wishLists">
+                <label class="chip"><input type="checkbox" id="wishFav">Favorites</label>
+                <label class="chip"><input type="checkbox" id="wishOwn">Collection</label>
+                <label class="chip on"><input type="checkbox" id="wishWant" checked>Wishlist</label>
+              </div>
+            </fieldset>
+            <div class="row2">
+              <div class="field">
+                <label class="lbl" for="wishConc">Concentration</label>
+                <select id="wishConc">
+                  <option value="">Not sure</option>
+                  <option>Parfum</option><option>Eau de Parfum</option><option>Eau de Toilette</option><option>Eau de Cologne</option><option>Eau Fraîche</option>
+                </select>
+              </div>
+              <div class="field"><label class="lbl" for="wishSize">Size (ml)</label><input type="number" id="wishSize" min="1" max="300" inputmode="numeric"></div>
+            </div>
+            <fieldset><legend class="legend">Good for</legend><div class="chips" id="wishSeasons"></div></fieldset>
+            <button class="btn" type="submit">Add perfume</button>
+            <p class="status" id="wishStatus" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+        <div>
+          <h2>Wishlist</h2>
+          <p class="lede">Bottles you want to try or buy. Move one to your collection once it is yours.</p>
+          <div class="shelf" id="wishList"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="seasons" hidden aria-labelledby="h-seas">
+    <div class="empty lock"><strong>Sign in to browse by season</strong>Open the Account tab to sign in, create an account, or try the sample shelf.</div>
+    <div class="body">
+      <h2 id="h-seas">What to wear when</h2>
+      <p class="lede">Pick a tag to see every perfume you marked for it.</p>
+      <div class="season-grid" id="seasonGrid"></div>
+      <div class="shelf" id="seasonList"></div>
+    </div>
+  </section>
+
+  <section id="profile" hidden aria-labelledby="h-prof">
+    <div class="empty lock"><strong>Sign in to add scent profiles</strong>Open the Account tab to sign in, create an account, or try the sample shelf.</div>
+    <div class="body">
+      <div class="pane">
+        <div class="panel">
+          <h3 id="h-prof">Scent profile</h3>
+          <form id="profForm">
+            <div class="field"><label class="lbl" for="profSelect">Perfume</label><select id="profSelect"></select></div>
+            <a class="btn ghost" id="profLookup" href="https://www.fragrantica.com/" target="_blank" rel="noopener">Look up on Fragrantica</a>
+            <div class="row2">
+              <div class="field"><label class="lbl" for="profPerfumer">Perfumer</label><input type="text" id="profPerfumer" maxlength="120"></div>
+              <div class="field"><label class="lbl" for="profYear">Year</label><input type="number" id="profYear" min="1800" max="2100" inputmode="numeric"></div>
+            </div>
+            <div class="field"><label class="lbl" for="profTop">Top notes</label><textarea id="profTop" placeholder="Bergamot, pink pepper"></textarea></div>
+            <div class="field"><label class="lbl" for="profHeart">Heart notes</label><textarea id="profHeart" placeholder="Lavender, geranium"></textarea></div>
+            <div class="field"><label class="lbl" for="profBase">Base notes</label><textarea id="profBase" placeholder="Ambroxan, cedar"></textarea></div>
+            <div class="field"><label class="lbl" for="profAccords">Main accords</label><input type="text" id="profAccords" placeholder="Fresh spicy, woody, aromatic"></div>
+            <button class="btn" type="submit">Save profile</button>
+            <p class="status" id="profStatus" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+        <div>
+          <h2 id="profTitle">Notes and perfumer</h2>
+          <p class="lede" id="profSub">Choose a perfume to see its note pyramid.</p>
+          <div id="profView"></div>
+          <p class="aside">Use the lookup button, then type or paste the perfumer and notes here. Separate notes with commas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script src="appPerfume.js" defer></script>
+</body>
+</html>
